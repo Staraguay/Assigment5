@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Treasure Hunter</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+<body>
+<main>
+    <div class="container">
+        <h1>Tresure Hunt - Assignment 5</h1>
+        <form method="POST" class="form">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn-submit" type="submit">Submit</button>
+        </form>
+    </div>
+    {% if result %}
+        <div class='container-response'>
+            <h2>The results are</h2>
+            <p>The result of the number is: <span>{{ result.nPuzzle }}</span></p>
+            <p>The text in binary is: <span>{{ result.bmessage }}</span></p>
+            <p>The number of vowels is: <span>{{ result.vocals }}</span></p>
+            {% if result.treasure.result %}
+                <pre>{{ result.treasure.steps }}</pre>
+                <p><span>The number was guessed</span></p>
+            {% else %}
+                <pre>{{ result.treasure.steps }}</pre>
+                <p><span>The number could not be guessed</span></p>
+            {% endif %}
+            <a href="{% url 'home' %}" class="" style="padding: 5px 10px; text-decoration: none; background: darkred; color: white; border-radius: 10px">Reset</a>
+        </div>
+    {% endif %}
+</main>
+<footer>
+    <div>
+        <span>Sebastian Taraguay</span>
+    </div>
+</footer>
+</body>
+</html>
